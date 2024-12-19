@@ -1,0 +1,21 @@
+{
+  "name": "vehiclerent",
+  "version": "1.0.0",
+  "description": "Vehicle Reant application",
+  "homepage": "https://github.com/PRAKASH-VD/VehicleReant#readme",
+  "bugs": {
+    "url": "https://github.com/PRAKASH-VD/VehicleReant/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PRAKASH-VD/VehicleReant.git"
+  },
+  "license": "ISC",
+  "author": "Prakash V",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  }
+}
