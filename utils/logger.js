@@ -1,11 +1,12 @@
 const requstLogger = (req, res, next) =>
-     { console.log('method:', req.method);
-        console.log('path:', req.path);
-        console.log('body:', req.body);
-        console.log('query:', req.query);
-        console.log( 'params:', req.params);
-        console.log('cookies:', req.cookies);
+     { console.log('Method:', req.method);
+        console.log('Path:', req.path);
+        console.log('Body:', req.body);
+        console.log('Query:', req.query);
+        console.log( 'Params:', req.params);
+        console.log('Cookies:', req.cookies);
         console.log('---------------------');
+         
         next();
     }
 
