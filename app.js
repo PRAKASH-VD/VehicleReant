@@ -6,6 +6,7 @@ const bookingRouter=require('./routes/bookingRoutes');
 const logger=require('./utils/logger');
 const cookieParser=require('cookie-parser');
 const unknownEndpoint=require('./utils/Error');
+const userRouter=require('./routes/userRoutes');
 
 
 const app=express();
@@ -17,6 +18,7 @@ app.use(logger)
 app.use('/api/v1/auth',authRouter);
 app.use('/api/v1/vehicles',vehicleRouter);
 app.use('/api/v1/bookings', bookingRouter);
+app.use('/api/v1/users',userRouter);
 
 
 app.use(unknownEndpoint);
