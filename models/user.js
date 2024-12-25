@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
     name: String,
@@ -16,7 +16,21 @@ const userSchema = new mongoose.Schema({
     updatedAt: {
         type: Date,
         default: Date.now
+    },
+    cart: {
+        type: Array,
+        default: [
+            {
+                vehicle: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'Vehicle'
+                  },
+                  quantity: Number
+            }
+        ]
     }
-})
+});
 
-module.exports = mongoose.model('User', userSchema,'users');
+const User = mongoose.model('User', userSchema, 'users');
+
+export default User;

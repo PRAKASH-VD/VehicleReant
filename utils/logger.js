@@ -10,4 +10,4 @@ const requstLogger = (req, res, next) =>{
         next();
     }
 
-module.exports = requstLogger;
+export default requstLogger;

@@ -1,7 +1,7 @@
-const User = require('../models/user');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const {JWT_SECRET} = require('../utils/config');
+import User from '../models/user.js';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { JWT_SECRET } from '../utils/config.js';
 
 const authController = {
     register: async (req, res) => {
@@ -21,14 +21,14 @@ const authController = {
        const newUser = new User({name, email, password: hashedPassword, role});
 
        //check if the User already exists
-       const user = await User.findOne({email});
+       const user = await User.find({email});
 
-       if(user)
+       if(user.length>0)
         {
         return res.status(400).json({message: "User already exists"});
        }
         await newUser.save();
-        return res.json({message: "User Registered successfully"});    
+        return res.status(201).json({message: "User Registered successfully"});    
         
        } catch (error) {
         return res.status(400).json({message: error.message});
@@ -41,20 +41,20 @@ const authController = {
     const {email, password} = req.body;
 
     //check if the user exists
-    const user=await User.findOne({email});
+    const user=await User.find({email});
     if(user.length===0){
         return res.status(400).json({message: "User not Found"});
     }
 
     //check if the password is correct
-    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+    const isPasswordCorrect = await bcrypt.compare(password, user[0].password);
 
     if(!isPasswordCorrect){
         return res.status(400).json({message: "Invalid password"});
     }
 
     //Generate JWT token    
-    const token = jwt.sign({userId: user._id},JWT_SECRET);
+    const token = jwt.sign({userId: user[0]._id},JWT_SECRET);
 
     //store the token in cookie
     res.cookie('token', token, {httpOnly: true});
@@ -86,9 +86,8 @@ const authController = {
       } catch (error) {
         return res.status(400).json({message: error.message});
       }
-    }
-       
+    }     
 
 }
 
-module.exports = authController;
+export default authController;

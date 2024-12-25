@@ -2,7 +2,10 @@
   "name": "vehiclerent",
   "version": "1.0.0",
   "description": "Vehicle Reant application",
+  "main": "server.js",
+   "type": "module",
   "homepage": "https://github.com/PRAKASH-VD/VehicleReant#readme",
+
   "bugs": {
     "url": "https://github.com/PRAKASH-VD/VehicleReant/issues"
   },
@@ -12,11 +15,12 @@
   },
   "license": "ISC",
   "author": "Prakash V",
-  "type": "commonjs",
-  "main": "index.js",
+  "types": "commonjs",
+  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "npm run build && node server.js",
+    "build":"npm install --prefix ./client && npm run build --prefix ./client && npm install",
     "dev": "nodemon server.js"
   },
   "dependencies": {

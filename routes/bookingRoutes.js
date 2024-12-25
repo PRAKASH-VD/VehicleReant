@@ -1,15 +1,15 @@
-const express = require('express');
-const bookingController = require('../controllers/bookingController');
-const bookingRouter= express.Router();
-const auth = require('../middlewares/auth');
+import { Router } from 'express';
+import bookingController from '../controllers/bookingController.js';
+import auth from '../middlewares/auth.js';
+const bookingRouter = Router();
 
-bookingRouter.get('/',auth.checkAuth,bookingController.getAllBookings);
+bookingRouter.post('/', auth.checkAuth, bookingController.createBooking);
 
-bookingRouter.post('/',auth.checkAuth,auth.allowRoles(['user']),bookingController.createBooking);
-bookingRouter.get('/:id',auth.checkAuth,auth.allowRoles(['user']) ,bookingController.getBookingById);
-bookingRouter.put('/:id',auth.checkAuth,auth.allowRoles(['user']) ,bookingController.updateBooking);
-bookingRouter.delete('/:id',bookingController.deleteBooking);
+bookingRouter.get('/', auth.checkAuth, auth.allowRoles(['admin']), bookingController.getAllBookings);
+bookingRouter.get('/:id', auth.checkAuth, auth.allowRoles(['admin']), bookingController.getBookingByID);
+bookingRouter.put('/:id', auth.checkAuth, auth.allowRoles(['admin']), bookingController.updateBooking);
+bookingRouter.delete('/:id', auth.checkAuth, auth.allowRoles(['admin']), bookingController.deleteBooking);
 
  
 
-module.exports = bookingRouter;
+export default bookingRouter;

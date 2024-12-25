@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const vehicleSchema = new mongoose.Schema({
-    
     name: String,
     description: String,
     price: Number,
@@ -17,11 +16,9 @@ const vehicleSchema = new mongoose.Schema({
     updatedAt:{
         type: Date,
         default: Date.now
-    }
-        
-    
-
+    }      
 });
 
+const Vehicle = mongoose.model('Vehicle', vehicleSchema, 'vehicles');
 
-module.exports = mongoose.model('Vehicle', vehicleSchema, 'vehicles');
+export default Vehicle;

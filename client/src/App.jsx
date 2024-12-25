@@ -5,8 +5,16 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Vehicles from "./pages/Vehicles";
 import vehiclesLoader from './loaders/units/vehiclesLoader';
-
-
+import store from "./redux/app/store";
+import { Provider } from "react-redux";
+import authLoader from "./loaders/units/authLoader";
+import DashboardWrapper from "./wrappers/DashboardWrapper";
+import Logout from "./components/Logout";
+import AdminDashboardWrapper from "./wrappers/AdminDashboardWrapper";
+import Dashboard from "./pages/user/Dashboard";
+import Cart from "./pages/user/Cart";
+import Bookings from "./pages/user/Bookings";
+import UserVehicles from "./pages/user/UserVehicles";
 
 const routes = [
   {
@@ -26,18 +34,63 @@ const routes = [
           },
           {
             path:"register",
-            element: <Register />
+            element: <Register />,
+            hydrateFallbackElement: <div>Loading...</div>,
           },
           {
             path: "login",
-            element: <Login />
+            element: <Login />,
+            hydrateFallbackElement: <div>Loading...</div>,
+          },
+          {
+            path: "logout",
+            element: <Logout />,
+            hydrateFallbackElement: <div>Loading...</div>,
           }
+         
         ]
       },
       
     ]
-  }
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardWrapper />,
+    loader: authLoader,
+    hydrateFallbackElement: <div>Loading...</div>,
+    children: [
+      {
+        path: "",
+        element: <Dashboard />,
+        hydrateFallbackElement: <div>Loading...</div>,
+      },
+      {
+        path: "vehicles/pages/:page",
+        element: <UserVehicles />,
+        loader: vehiclesLoader,
+        hydrateFallbackElement: <div>Loading...</div>,
+      },
+      {
+        path: "cart",
+        element: <Cart />,
+        hydrateFallbackElement: <div>Loading...</div>,
+      },
+      {
+        path: "bookings",
+        element: <Bookings />,
+        hydrateFallbackElement: <div>Loading...</div>,
+      }
+    ]      
+     
+  },
+  {
+    path: "/admin/dashboard",
+    element: <AdminDashboardWrapper />,
+    loader: authLoader,
+    hydrateFallbackElement: <div>Loading...</div>,
+      }
 ];
+
 const router = createBrowserRouter(routes,
   {
     future: {
@@ -52,12 +105,12 @@ const router = createBrowserRouter(routes,
 
 const App = () => {
   return (
-    <RouterProvider 
-    router={router} 
-    future={{
-      v7_startTransition: true,
-    }}
-    />
+    <Provider store={store}>
+      <RouterProvider router={router}
+      future={{
+       v7_startTransition: true,
+      }} />
+    </Provider>
   )
 }
 

@@ -7,8 +7,6 @@ const LayoutWrapper = () => {
     <div className="container">
         <Outlet />
     </div>
-
-
 </>
   )
 }

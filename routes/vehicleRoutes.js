@@ -1,7 +1,8 @@
-const express = require('express');
-const vehicleController = require('../controllers/vehicleController');
-const auth = require('../middlewares/auth');
-const vehicleRouter = express.Router();
+import { Router } from 'express';
+import vehicleController from '../controllers/vehicleController.js';
+import auth from '../middlewares/auth.js';
+
+const vehicleRouter = Router();
 
 //public routes
 vehicleRouter.get('/', vehicleController.getAllVehicles);
@@ -13,4 +14,5 @@ vehicleRouter.post('/', auth.checkAuth ,auth.allowRoles(['admin']) ,vehicleContr
 vehicleRouter.put('/:id',auth.checkAuth ,auth.allowRoles(['admin']) ,vehicleController.updateVehicle);
 vehicleRouter.delete('/:id',auth.checkAuth ,auth.allowRoles(['admin']) ,vehicleController.deleteVehicle);
 
-module.exports = vehicleRouter;
+
+export default vehicleRouter;

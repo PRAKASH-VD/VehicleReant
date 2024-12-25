@@ -1,9 +1,7 @@
-const mongoose = require('mongoose');
-const vehicle = require('./vehicle');
+import mongoose from 'mongoose';
 
 const bookingSchema = new mongoose.Schema({
-    user:{
-            
+    user:{            
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         },
@@ -15,19 +13,18 @@ const bookingSchema = new mongoose.Schema({
     },
     quantity:{
         type: Number,
-        required: true,
-        
+        required: true,       
     }
 }
- ],
+],
     total:Number,
     status:{
         type: String,
         enum: ['pending', 'confirmed', 'cancelled'],
         default: 'pending'
-    },
-        
-        
+    },             
 });
 
-module.exports = mongoose.model('Booking', bookingSchema, 'bookings');
+const Booking = mongoose.model('Booking', bookingSchema, 'bookings');
+
+export default Booking;

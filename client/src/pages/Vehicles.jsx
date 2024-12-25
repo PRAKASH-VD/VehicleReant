@@ -8,7 +8,7 @@ const Vehicles = () => {
     const [page, setPage] = useState(1);
 
     const updatePage = (e) => {
-          const newPage = parseInt(e.target.textContrnt);
+          const newPage = parseInt(e.target.textContent);
           setPage(newPage);
           navigate(`/vehicles/pages/${newPage}`);
     }
@@ -54,25 +54,23 @@ const Vehicles = () => {
                         Previous
                     </button>
                     {
-// calculate the number of page based on the total vehicles
-                        Array.from({length: Math.ceil(total / 5)}, (_, i) => i + 1).map((page) => (
+                        // check if total is a valid number
+                        Number.isFinite(total) && Array.from({ length: Math.ceil(total / 5) }, (_, i) => i + 1).map((page) => (
                             <button key={page} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4"
-                               onClick={updatePage}
+                                onClick={updatePage}
                             >
                                 {page}
                             </button>
                         ))
                     }
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r"
-                    onClick={nextPage}
+                        onClick={nextPage}
                     >
                         Next
                     </button>
                 </div>
-            </div>        
-                     
-</div>
-    
+            </div>
+        </div>
     );
 }
 

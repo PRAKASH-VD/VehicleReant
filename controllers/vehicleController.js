@@ -1,4 +1,4 @@
-const Vehicle = require('../models/vehicle');
+import Vehicle from "../models/vehicle.js";
 
 const vehicleController = {
 getAllVehicles: async (req, res) => {
@@ -24,21 +24,28 @@ getVehicleById: async (req, res) => {
 
     } catch (error) {
        return res.status(500).json({ message: error.message });
-    }
-    
+    }    
 },
 createVehicle: async (req, res) => {
     try {
         const {name, description, price, image, category, stock} = req.body;
+       
         if(!name || !description || !price || !image || !category || !stock){
-
             return res.status(400).json({message: "All fields are required"});
         }
-        const newVehicle = new Vehicle({name, description, price, image, category, stock});
+
+        const newVehicle = new Vehicle({
+            name,
+             description,
+              price,
+               image,
+               category,
+                stock
+            });
+
         await newVehicle.save();
+
         return res.status(201).json({message: "Vehicle created successfully", newVehicle});
-
-
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
@@ -51,15 +58,14 @@ updateVehicle: async (req, res) => {
         const {name, description, price, image, category, stock} = req.body;
         
         //check if the vehicle exists
-
-        const vehicle = await Vehicle.findById(req.params.id);
-
+        const vehicle = await Vehicle.findById(id);
         if(!vehicle){
             return res.status(404).json({message: "Vehicle not found"});
         }
 
         //update the vehicle
-        await Vehicle.findByIdAndUpdate(id, {name, 
+        await Vehicle.findByIdAndUpdate(id, {
+            name, 
             description, 
             price, 
             image, 
@@ -81,7 +87,6 @@ deleteVehicle: async (req, res) => {
         const {id} = req.params;
         
         //check if the vehicle exists
-
         const vehicle = await Vehicle.findById(id);
 
         if(!vehicle){
@@ -100,4 +105,4 @@ deleteVehicle: async (req, res) => {
 }
 }
 
-module.exports = vehicleController;
+export default vehicleController;
